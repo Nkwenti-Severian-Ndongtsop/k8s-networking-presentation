@@ -1,0 +1,68 @@
+site_name: Kubernetes Networking Presentation
+repo_url: https://github.com/Nkwenti-Severian-Ndongtsop/k8s-networking-presentation.git
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.instant
+    - navigation.tabs
+    - navigation.expand
+    - content.code.annotate
+    - content.action.edit
+    - navigation.drawer
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-4
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+plugins:
+  - search # Removed - mermaid2 here
+
+nav:
+  - 🏠 Home: index.md
+  - 🌐 CNI Intro: cni-intro.md
+  - 'Networking Concepts':
+    - 🐳 Pod-to-Pod Networking: pod-networking.md
+    - 🔁 Node-to-Node Networking: node-to-node.md
+    - 🌍 External Cluster Networking: external-access.md
+    - 📦 ClusterIP, NodePort, LoadBalancer: service-types.md
+  - 📚 References: glossary.md
+
+# In your mkdocs.yml file
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.highlight: # <--- Adjust this section
+      linenums: true # Use 'linenums' instead of 'line_numbers'
+      anchor_linenums: true # Keep this if you want line numbers to be anchor links
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  # ... (rest of your extensions) ...
+  - pymdownx.tabbed
+  - pymdownx.details
+  - pymdownx.emoji
+  - pymdownx.tasklist
+  - pymdownx.arithmatex
+  - pymdownx.snippets
+  - pymdownx.inlinehilite
+  - pymdownx.mark
+  - pymdownx.keys
+  - pymdownx.magiclink
+  - pymdownx.betterem
