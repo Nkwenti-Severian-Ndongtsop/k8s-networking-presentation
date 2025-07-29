@@ -45,8 +45,3 @@ Useful for local testing or bare metal clusters
 Creates an external load balancer (via cloud provider)
 
 Maps traffic to a ClusterIP service underneath
-
-## 4️⃣ ExternalName
-Maps a service to an external DNS name
-
-No selector, no pods — just an alias
