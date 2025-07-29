@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cni-demo-pod-1
+  namespace: networking-demo
+  labels:
+    app: cni-demo
+    role: frontend
+spec:
+  containers:
+  - name: nginx
+    image: nginx:alpine
+    ports:
+    - containerPort: 80
+    env:
+    - name: POD_NAME
+      value: "cni-demo-pod-1"
+    - name: POD_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cni-demo-pod-2
+  namespace: networking-demo
+  labels:
+    app: cni-demo
+    role: backend
+spec:
+  containers:
+  - name: busybox
+    image: busybox:1.35
+    command: ["/bin/sh", "-c", "while true; do echo 'CNI Demo Pod 2 - $(date)'; sleep 30; done"]
+    env:
+    - name: POD_NAME
+      value: "cni-demo-pod-2"
+    - name: POD_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: shared-namespace-pod
+  namespace: networking-demo
+  labels:
+    app: shared-namespace-demo
+spec:
+  containers:
+  - name: nginx
+    image: nginx:alpine
+    ports:
+    - containerPort: 80
+  - name: sidecar
+    image: busybox:1.35
+    command: ["/bin/sh", "-c", "while true; do echo 'Sidecar container - $(date)'; sleep 60; done"] 
