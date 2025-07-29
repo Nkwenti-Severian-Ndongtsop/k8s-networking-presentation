@@ -1,31 +1,29 @@
 # 🚀 Kubernetes Networking: CNI & Pod Communication
 
-This guide walks through the foundational concepts of Kubernetes networking — starting from how pods are plugged into the network using CNI, and how they communicate with each other on the same node.
+### 🔄 Pod-to-Pod Communication
 
----
+In Kubernetes, **every pod gets a unique IP**, and **pods can talk to each other directly** using these IPs, regardless of which node they're on.
 
-## 🔌 CNI – Container Network Interface
+### 🧠 How it works:
 
-CNI is the bridge between Kubernetes and the underlying network.
+- 🟢 **Same Node:**
+    
+    Pods communicate via the **local Linux bridge** set up by CNI. Traffic stays on the host.
+    
+- 🔵 **Across Nodes:**
+    
+    The traffic is routed through the **node's network** using **routing tables** or **overlay networks** (e.g., Flannel, Calico).
 
-It handles:
+  ```mermaid
+  sequenceDiagram
+    participant PodA
+    participant NodeA
+    participant CNI_Network
+    participant NodeB
+    participant PodB
 
-- 📡 Assigning unique IP addresses to pods
-- 🔗 Connecting pods to the node's network
-- 🧩 Working with container runtimes like `containerd`, `crun`, `Kata`
-
-### 🧱 What is CNI?
-
-CNI is a **standard interface** and a set of **plugins** used to configure container networking. It's invoked by container runtimes during pod creation.
-
----
-
-### ⚙️ CNI in Action
-
-```mermaid
-graph LR
-  A[Pod Creation Request] --> B[Kubelet]
-  B --> C["Container Runtime (e.g. containerd)"]
-  C --> D[CNI Plugin]
-  D --> E[Configure Network + Add IP]
-```
+    PodA->>NodeA: Sends packet to PodB IP
+    NodeA->>CNI_Network: Forwards packet via routing rule/overlay
+    CNI_Network->>NodeB: Delivers packet to target node
+    NodeB->>PodB: Delivers packet to PodB via its veth
+  ```
