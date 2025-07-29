@@ -35,7 +35,6 @@ nav:
   - 🌐 CNI Intro: cni-intro.md
   - 'Networking Concepts':
     - 🐳 Pod-to-Pod Networking: pod-networking.md
-    - 🔁 Node-to-Node Networking: node-to-node.md
     - 🌍 External Cluster Networking: external-access.md
     - 📦 ClusterIP, NodePort, LoadBalancer: service-types.md
   - 📚 References: glossary.md
