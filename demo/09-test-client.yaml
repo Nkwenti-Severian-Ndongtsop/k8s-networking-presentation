@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-client
+  namespace: networking-demo
+  labels:
+    app: test-client
+spec:
+  containers:
+  - name: curl-client
+    image: curlimages/curl:latest
+    command: ["/bin/sh", "-c"]
+    args:
+    - |
+      while true; do
+        echo "=== Testing ClusterIP Service ==="
+        curl -s http://clusterip-demo/ | head -5
+        
+        echo "=== Testing Shared Namespace Service ==="
+        curl -s http://shared-namespace-service/ | head -5
+        
+        echo "=== Testing Scalable App Service ==="
+        curl -s http://scalable-app-service/ | head -5
+        
+        echo "=== Testing Direct Pod Communication ==="
+        POD1_IP=$(kubectl get pod cni-demo-pod-1 -n networking-demo -o jsonpath='{.status.podIP}')
+        POD2_IP=$(kubectl get pod cni-demo-pod-2 -n networking-demo -o jsonpath='{.status.podIP}')
+        
+        if [ ! -z "$POD1_IP" ]; then
+          echo "Direct access to cni-demo-pod-1: $POD1_IP"
+          curl -s --connect-timeout 5 http://$POD1_IP/ | head -3 || echo "Direct pod access failed"
+        fi
+        
+        echo "=== Network Information ==="
+        echo "My Pod IP: $(hostname -i)"
+        echo "My Node: $(kubectl get pod test-client -n networking-demo -o jsonpath='{.spec.nodeName}')"
+        
+        echo "=== Waiting 60 seconds before next test ==="
+        sleep 60
+      done 
