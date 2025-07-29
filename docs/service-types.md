@@ -27,7 +27,6 @@ Services:
 | ClusterIP     | Inside the cluster     | Default; pod-to-pod communication |
 | NodePort      | External via node IP   | Access from outside the cluster (dev/test) |
 | LoadBalancer  | External via cloud LB  | Production-grade external access |
-| ExternalName  | Maps to external DNS   | Access external services (e.g., db.example.com) |
 
 ---
 
