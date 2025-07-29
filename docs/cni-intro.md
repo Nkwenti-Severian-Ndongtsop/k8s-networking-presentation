@@ -12,13 +12,15 @@ CNI is a specification and set of plugins used by container runtimes (like `cont
 
 ---
 
-## ⚙️ CNI Responsibilities
+## 🔌 CNI – Container Network Interface
 
-- 📡 Assigns **unique IP** addresses to containers
-- 🔗 Connects containers to the node’s network
-- 🔌 Integrates with container runtimes via OCI standards
+CNI (Container Network Interface) is a standard interface and a set of plugins used to configure networking for containers. It's triggered by the container runtime when a pod is created.
 
----
+It handles:
+
+- 📡 Assigning unique IP addresses to pods
+- 🔗 Connecting pods to the node's network
+- 🧩 Working with container runtimes like `containerd`, `crun`, `Kata`
 
 ## 🧠 How It Works
 
@@ -27,5 +29,7 @@ graph LR
   A[Pod Creation Request] --> B[Kubelet]
   B --> C["Container Runtime (e.g. containerd)"]
   C --> D[CNI Plugin]
-  D --> E[Configure Network + Add IP]
+  D --> E[Configure veth pair]
+  E --> F[Assign Pod IP + Add route]
+  F --> G[Connect Pod to Node's bridge or overlay network]
 ```
