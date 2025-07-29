@@ -13,7 +13,6 @@ Whether you're new to Kubernetes or looking to deepen your understanding of its 
 ### Core Networking Concepts
 * **CNI - Container Network Interface:** The foundational piece connecting pods to the network.
 * **Pod-to-Pod Networking:** How containers within different pods communicate with each other.
-* **Node-to-Node Networking:** The underlying network that enables communication across different worker nodes.
 * **External Cluster Networking:** Exposing your applications outside the cluster using various Service types (ClusterIP, NodePort, LoadBalancer) and Ingress.
 
 ## 🛠️ Demonstration Environment
