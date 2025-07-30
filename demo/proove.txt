@@ -1,0 +1,6 @@
+
+proove that the pods are connected using bridge and veth
+prove that all containers ina pod have the same IP andthen you explain why
+proove that pods have unique IP
+where does the service get it's ip and how does it connect the pods together
+how does the cluster ip get it's ip and how does it expose the services, same with the nodeportwho
