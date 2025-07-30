@@ -5,7 +5,6 @@ metadata:
   namespace: networking-demo
   labels:
     app: cni-demo
-    role: frontend
 spec:
   containers:
   - name: nginx
@@ -27,7 +26,6 @@ metadata:
   namespace: networking-demo
   labels:
     app: cni-demo
-    role: backend
 spec:
   containers:
   - name: busybox
